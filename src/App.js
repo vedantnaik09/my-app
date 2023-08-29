@@ -14,6 +14,7 @@ import {
 
 
 function App() {
+  
   const [alert, setAlert] = useState(null)
   const showAlert=(message, type)=>{
     setAlert({
@@ -34,10 +35,14 @@ function App() {
   //     showAlert("Light mode has been enabled","success")
   //   }
   // };
-  
+  const [dColor, setDColor] = useState('black')
   const changeColor = (color) =>{   
+    setDColor(color)
+    console.log(dColor)
+      
       document.body.style.backgroundColor = color;
       setMode("dark")
+      
       if(color!=='white')
       {
       showAlert("Dark mode has been enabled","success")
@@ -48,10 +53,11 @@ function App() {
     document.title= "TextUtils - LightMode"
     }
   }
-
+  
   const [mode, setMode] = useState("light");
   return (
     <>
+    
     <BrowserRouter>
       <Navbar
         title="TextUtils"
@@ -63,9 +69,9 @@ function App() {
       />
       <Alert alert={alert}/>
       <div className="container">
-      
+     
       <Routes>
-      <Route exact path="/about" element={<About />}></Route>
+      <Route exact path="/about" element={<About mode={mode} dcolor={dColor} />}></Route>
             <Route
               exact path="/"
               element={
@@ -73,6 +79,7 @@ function App() {
                   showAlert={showAlert}
                   heading="Enter Text to analyze "
                   mode={mode}
+                  dColor={dColor}
                 />
               }
             ></Route>
